@@ -4,9 +4,10 @@
     "version": "0.1.0",
     "device": "cpu",
     "python": [
-      "3.8"
+      "3.8",
+      "3.9"
     ],
-    "platform": "linux",
+    "os": "linux",
     "arch": "x86_64",
     "url": "https://download.pytorch.org/whl/cpu/torch-2.2.0-cp38-none-macosx_10_9_x86_64.whl#sha256=9fa4ba2c30ec294a25bb4b7a15a7a06120d3aae6f8f8de740391bd65239c8006"
   },
@@ -17,7 +18,7 @@
     "python": [
       "3.8"
     ],
-    "platform": "win",
+    "os": "win",
     "arch": "x86_64",
     "url": "https://download.pytorch.org/whl/cpu/torch-2.2.0-cp38-none-macosx_10_9_x86_64.whl#sha256=9fa4ba2c30ec294a25bb4b7a15a7a06120d3aae6f8f8de740391bd65239c8006"
   },
@@ -28,7 +29,7 @@
     "python": [
       "3.8"
     ],
-    "platform": "macos",
+    "os": "macos",
     "arch": "x86_64",
     "url": "https://download.pytorch.org/whl/cpu/torch-2.2.0-cp38-none-macosx_10_9_x86_64.whl#sha256=9fa4ba2c30ec294a25bb4b7a15a7a06120d3aae6f8f8de740391bd65239c8006"
   }

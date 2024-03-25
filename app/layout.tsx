@@ -5,8 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Pytorch Version",
-  description: "Pytorch Version Cheetsheet!",
+  title: "PyTorch, I Tell You!",
 };
 
 export default function RootLayout({
