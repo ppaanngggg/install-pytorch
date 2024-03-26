@@ -63,6 +63,14 @@ device_table = {
     "rocm5.7": "ROCm 5.7",
 }
 
+macos_table = {
+    "macosx_10_6": "macOS 10.6",
+    "macosx_10_7": "macOS 10.7",
+    "macosx_10_9": "macOS 10.9",
+    "macosx_11_0": "macOS 11.0",
+    "macosx_11_1": "macOS 11.1",
+}
+
 arch_table = {
     "x86_64": "x86_64",
     "amd64": "x86_64",
@@ -76,8 +84,7 @@ def gen_record(filename: str, uri: str):
     url = f"{host}{uri}"
     uri, sha256 = uri.split("#")
     assert sha256.startswith("sha256=")
-    sha256 = sha256[len("sha256=") :]
-    ret = {"sha256": sha256, "url": url}
+    ret = {"url": url}
     # split filename
     assert filename.startswith("torch-") and filename.endswith(".whl")
     filename = filename[len("torch-") : -len(".whl")]
@@ -114,8 +121,15 @@ def gen_record(filename: str, uri: str):
         else:
             raise ValueError(f"Unknown os_and_arch: {os_and_arch}")
     elif "macosx" in os_and_arch:
-        os = "Mac OS X"
-        _, _, _, arch = os_and_arch.split("_", maxsplit=3)
+        if "x86_64" in os_and_arch:
+            arch = "x86_64"
+            os = os_and_arch[: -len("_x86_64")]
+        elif "arm64" in os_and_arch:
+            arch = "arm64"
+            os = os_and_arch[: -len("_arm64")]
+        else:
+            raise ValueError(f"Unknown os_and_arch: {os_and_arch}")
+        os = macos_table[os]
     elif "win" in os_and_arch:
         os = "Windows"
         _, arch = os_and_arch.split("_", maxsplit=1)
@@ -143,6 +157,8 @@ def main():
         key=lambda x: (x["version"], x["python"], x["device"], x["os"], x["arch"]),
         reverse=True,
     )
+    for i, record in enumerate(records):
+        record["id"] = str(i)
     with open("../public/records.json", "w") as f:
         json.dump(records, f, indent=2)
 
