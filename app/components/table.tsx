@@ -2,23 +2,23 @@ import { promises as fs } from "fs";
 import { MdDownload } from "react-icons/md";
 
 type Record = {
-  filename: string;
+  sha256: string;
+  url: string;
+  python: string;
   version: string;
   device: string;
-  python: string[];
   os: string;
   arch: string;
-  url: string;
 };
 
 function Row(record: Record) {
   return (
-    <tr key={record.filename}>
+    <tr key={record.sha256}>
       <td>{record.version}</td>
-      <td>{record.python.join(", ")}</td>
+      <td>{record.device}</td>
+      <td>{record.python}</td>
       <td>{record.os}</td>
       <td>{record.arch}</td>
-      <td>{record.device}</td>
       <td>
         <a href={record.url}>
           <MdDownload />
