@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 import bs4
 import requests
@@ -82,9 +83,10 @@ arch_table = {
 def gen_record(filename: str, uri: str):
     # get sha256 and url
     url = f"{host}{uri}"
-    uri, sha256 = uri.split("#")
-    assert sha256.startswith("sha256=")
     ret = {"url": url}
+    if "#sha256" in uri:
+        uri, sha256 = uri.split("#")
+        assert sha256.startswith("sha256=")
     # split filename
     assert filename.startswith("torch-") and filename.endswith(".whl")
     filename = filename[len("torch-") : -len(".whl")]
@@ -159,7 +161,7 @@ def main():
     )
     for i, record in enumerate(records):
         record["id"] = str(i)
-    with open("../public/records.json", "w") as f:
+    with open(Path(__file__) / "../public/records.json", "w") as f:
         json.dump(records, f, indent=2)
 
 
