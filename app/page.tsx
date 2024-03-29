@@ -2,6 +2,7 @@ import Table from "@/app/components/table";
 import Search from "@/app/components/search";
 import { records } from "@/app/utils/records";
 import { Suspense } from "react";
+import Image from "next/image";
 
 // define a structure for the data
 
@@ -22,7 +23,15 @@ export default function Home({
 
   return (
     <main className="flex flex-col min-h-screen items-center">
-      <h1 className="text-7xl m-10">PyTorch</h1>
+      <div className="flex flex-row items-center">
+        <Image
+          src={"/pytorch_logo.png"}
+          alt="pytorch logo"
+          width={72}
+          height={72}
+        />
+        <h1 className="text-6xl m-10">Install PyTorch</h1>
+      </div>
       <div className="flex flex-col w-full items-center">
         <Suspense>
           <Search records={records} />
@@ -30,6 +39,7 @@ export default function Home({
       </div>
       <div className="divider divider-text"></div>
       <Table device={device} python={python} os={os} arch={arch} />
+      <div className="divider divider-text"></div>
     </main>
   );
 }

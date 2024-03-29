@@ -8,7 +8,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PyTorch, I Tell You!",
+  title:
+    "Install PyTorch: Target CUDA, ROCm, or CPU on Linux, Windows, or MacOS (arm64/x86_64) with Supported Python Versions",
+  description:
+    "Super easy finder to help you install the right PyTorch version for your CUDA, ROCm, or CPU on Linux, Windows, or MacOS (arm64/x86_64) with supported Python versions.",
 };
 
 export default function RootLayout({
@@ -18,7 +21,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="bumblebee">
-      <head lang="en"></head>
       <body className={clsx("subpixel-antialiased", inter.className)}>
         {children}
         <Analytics />
