@@ -1,74 +1,145 @@
 "use client";
 
-import { MdOutlineSearch } from "react-icons/md";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Record } from "@/app/utils/records";
+import { clsx } from "clsx";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const labels = {
-  python: new Set<string>(),
-  version: new Set<string>(),
-  device: new Set<string>(),
-  os: new Set<string>(),
-  arch: new Set<string>(),
+type Label = {
+  device: string[];
+  python: string[];
+  os: string[];
+  arch: string[];
 };
 
-function search(strs: string[], term: string) {
-  let lowerTerm = term.toLowerCase();
-  return strs.filter((str) => str.toLowerCase().includes(lowerTerm));
-}
-
 export default function Search(props: { records: Record[] }) {
-  useEffect(() => {
-    props.records.forEach((record) => {
-      labels.python.add(record.python);
-      labels.version.add(record.version);
-      labels.device.add(record.device);
-      labels.os.add(record.os);
-      labels.arch.add(record.arch);
-    });
-    console.log(labels);
-  }, [props.records]);
-
   const searchParams = useSearchParams();
-  const [candidates, setCandidates] = useState<string[]>([]);
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
-  function handleSearch(term: string) {
-    if (term === "") {
-      setCandidates([]);
-      return;
-    }
-    const tmp = [];
-    tmp.push(...search(Array.from(labels.version), term));
-    tmp.push(...search(Array.from(labels.device), term));
-    tmp.push(...search(Array.from(labels.python), term));
-    tmp.push(...search(Array.from(labels.os), term));
-    tmp.push(...search(Array.from(labels.arch), term));
-    setCandidates(tmp);
+  function addFilter(key: string, value: string) {
+    const params = new URLSearchParams(searchParams);
+    params.set(key, value);
+    replace(`${pathname}?${params.toString()}`);
   }
 
+  function removeFilter(key: string, value: string) {
+    const params = new URLSearchParams(searchParams);
+    params.delete(key);
+    replace(`${pathname}?${params.toString()}`);
+  }
+
+  const [labels, setLabels] = useState<Label>({
+    device: [] as string[],
+    python: [] as string[],
+    os: [] as string[],
+    arch: [] as string[],
+  });
+
+  useEffect(() => {
+    let device: Set<string> = new Set();
+    let python: Set<string> = new Set();
+    let os: Set<string> = new Set();
+    let arch: Set<string> = new Set();
+    props.records.forEach((record) => {
+      device.add(record.device);
+      python.add(record.python);
+      os.add(record.os);
+      arch.add(record.arch);
+    });
+    // turn to array and sort
+    let newLabels: Label = { device: [], python: [], os: [], arch: [] };
+    newLabels.device = Array.from(device).sort();
+    newLabels.python = Array.from(python).sort();
+    newLabels.os = Array.from(os).sort();
+    newLabels.arch = Array.from(arch).sort();
+    setLabels(newLabels);
+  }, [props.records]);
+
   return (
-    <div className="items-center w-6/12">
-      <label className="input input-bordered flex items-center w-full">
-        <MdOutlineSearch />
-        <input
-          onChange={(e) => {
-            handleSearch(e.target.value);
-          }}
-          type="text"
-          className="grow"
-          placeholder="Search"
-        />
-      </label>
-      <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-        {candidates.map((candidate, index) => {
-          return (
-            <li key={index}>
-              <a onClick={() => {}}>{candidate}</a>
-            </li>
-          );
-        })}
-      </ul>
+    <div className="flex flex-col w-9/12 max-w-5xl space-y-1.5">
+      <div className="flex flex-wrap justify-center items-center">
+        {labels.device.map((device) => (
+          <button
+            key={device}
+            className={clsx(
+              "btn btn-xs m-0.5",
+              {
+                "btn-info": device.startsWith("CPU"),
+                "btn-success": device.startsWith("CUDA"),
+                "btn-error": device.startsWith("ROCm"),
+              },
+              { "btn-outline": device == searchParams.get("device") },
+            )}
+            onClick={() => {
+              if (device == searchParams.get("device")) {
+                removeFilter("device", device);
+              } else {
+                addFilter("device", device);
+              }
+            }}
+          >
+            {device}
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-wrap justify-center items-center">
+        {labels.python.map((python) => (
+          <button
+            key={python}
+            className={clsx("btn btn-xs m-0.5 btn-primary", {
+              "btn-outline": python == searchParams.get("python"),
+            })}
+            onClick={() => {
+              if (python == searchParams.get("python")) {
+                removeFilter("python", python);
+              } else {
+                addFilter("python", python);
+              }
+            }}
+          >
+            {python}
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-wrap justify-center items-center">
+        {labels.os.map((os) => (
+          <button
+            key={os}
+            className={clsx("btn btn-xs m-0.5", {
+              "btn-outline": os == searchParams.get("os"),
+            })}
+            onClick={() => {
+              if (os == searchParams.get("os")) {
+                removeFilter("os", os);
+              } else {
+                addFilter("os", os);
+              }
+            }}
+          >
+            {os}
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-wrap justify-center items-center">
+        {labels.arch.map((arch) => (
+          <button
+            key={arch}
+            className={clsx("btn btn-xs m-0.5 btn-warning", {
+              "btn-outline": arch == searchParams.get("arch"),
+            })}
+            onClick={() => {
+              if (arch == searchParams.get("arch")) {
+                removeFilter("arch", arch);
+              } else {
+                addFilter("arch", arch);
+              }
+            }}
+          >
+            {arch}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

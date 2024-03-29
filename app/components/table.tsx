@@ -19,10 +19,15 @@ function Row(record: Record) {
 }
 
 // read the data from the file, return a list of record
-export default async function Table() {
+export default async function Table(props: {
+  device: string | null;
+  python: string | null;
+  os: string | null;
+  arch: string | null;
+}) {
   return (
     <div className="overflow-x-auto">
-      <table className="table">
+      <table className="table table-lg">
         <thead>
           <tr>
             <th>PyTorch Build</th>
@@ -33,7 +38,18 @@ export default async function Table() {
             <th></th>
           </tr>
         </thead>
-        <tbody>{records.map((record: Record) => Row(record))}</tbody>
+        <tbody>
+          {records.map((record: Record) => {
+            if (
+              (props.device === null || record.device === props.device) &&
+              (props.python === null || record.python === props.python) &&
+              (props.os === null || record.os === props.os) &&
+              (props.arch === null || record.arch === props.arch)
+            ) {
+              return Row(record);
+            }
+          })}
+        </tbody>
       </table>
     </div>
   );
