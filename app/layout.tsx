@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     "Install PyTorch: Target CUDA, ROCm, or CPU on Linux, Windows, or MacOS (arm64/x86_64) with Supported Python Versions",
   description:
     "Super easy finder to help you install the right PyTorch version for your CUDA, ROCm, or CPU on Linux, Windows, or MacOS (arm64/x86_64) with supported Python versions.",
+  verification: { google: "JXQ1K9hsRtt0tAXhGDnZ04Trr3sMBxQA-tO3T1WznzY" },
 };
 
 export default function RootLayout({
