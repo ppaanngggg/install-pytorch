@@ -1,5 +1,5 @@
 import { MdDownload } from "react-icons/md";
-import { Record, records } from "@/app/utils/records";
+import { Record } from "@/app/utils/records";
 
 function Row(record: Record) {
   return (
@@ -19,12 +19,7 @@ function Row(record: Record) {
 }
 
 // read the data from the file, return a list of record
-export default async function Table(props: {
-  device: string | null;
-  python: string | null;
-  os: string | null;
-  arch: string | null;
-}) {
+export default async function Table(props: { records: Record[] }) {
   return (
     <div className="overflow-x-auto">
       <table className="table table-lg">
@@ -38,18 +33,7 @@ export default async function Table(props: {
             <th></th>
           </tr>
         </thead>
-        <tbody>
-          {records.map((record: Record) => {
-            if (
-              (props.device === null || record.device === props.device) &&
-              (props.python === null || record.python === props.python) &&
-              (props.os === null || record.os === props.os) &&
-              (props.arch === null || record.arch === props.arch)
-            ) {
-              return Row(record);
-            }
-          })}
-        </tbody>
+        <tbody>{props.records.map((record) => Row(record))}</tbody>
       </table>
     </div>
   );

@@ -1,10 +1,35 @@
 import Table from "@/app/components/table";
 import Search from "@/app/components/search";
-import { records } from "@/app/utils/records";
+import { Record, records } from "@/app/utils/records";
 import { Suspense } from "react";
 import Image from "next/image";
+import Continue from "@/app/components/continue";
 
-// define a structure for the data
+function filterRecords(
+  records: Record[],
+  device: string | null,
+  python: string | null,
+  os: string | null,
+  arch: string | null,
+  limit: number,
+): [Record[], boolean] {
+  const ret: Record[] = [];
+  // iter and filter records to ret, early stop at limit
+  for (let record of records) {
+    if (
+      (device === null || record.device === device) &&
+      (python === null || record.python === python) &&
+      (os === null || record.os === os) &&
+      (arch === null || record.arch === arch)
+    ) {
+      ret.push(record);
+      if (ret.length >= limit) {
+        return [ret, true];
+      }
+    }
+  }
+  return [ret, false];
+}
 
 export default function Home({
   searchParams,
@@ -14,12 +39,22 @@ export default function Home({
     python?: string;
     os?: string;
     arch?: string;
+    limit?: number;
   };
 }) {
   const device = searchParams?.device || null;
   const python = searchParams?.python || null;
   const os = searchParams?.os || null;
   const arch = searchParams?.arch || null;
+  const limit = searchParams?.limit || 100;
+  const [filteredRecord, isContinue] = filterRecords(
+    records,
+    device,
+    python,
+    os,
+    arch,
+    limit,
+  );
 
   return (
     <main className="flex flex-col min-h-screen items-center">
@@ -37,9 +72,13 @@ export default function Home({
           <Search records={records} />
         </Suspense>
       </div>
-      <div className="divider divider-text"></div>
-      <Table device={device} python={python} os={os} arch={arch} />
-      <div className="divider divider-text"></div>
+      <div className="divider"></div>
+      <Table records={filteredRecord} />
+      {isContinue && (
+        <Suspense>
+          <Continue />
+        </Suspense>
+      )}
     </main>
   );
 }
