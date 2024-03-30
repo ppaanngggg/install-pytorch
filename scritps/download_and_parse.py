@@ -159,10 +159,28 @@ def main():
         key=lambda x: (x["version"], x["python"], x["device"], x["os"], x["arch"]),
         reverse=True,
     )
+
+    labels = {
+        "device": set(),
+        "python": set(),
+        "os": set(),
+        "arch": set(),
+    }
     for i, record in enumerate(records):
         record["id"] = str(i)
-    with open(Path(__file__) / "../public/records.json", "w") as f:
+        labels["device"].add(record["device"])
+        labels["python"].add(record["python"])
+        labels["os"].add(record["os"])
+        labels["arch"].add(record["arch"])
+    with open(Path(__file__).parent.parent / "public/records.json", "w") as f:
         json.dump(records, f, indent=2)
+
+    labels["device"] = sorted(labels["device"])
+    labels["python"] = sorted(labels["python"])
+    labels["os"] = sorted(labels["os"])
+    labels["arch"] = sorted(labels["arch"])
+    with open(Path(__file__).parent.parent / "public/labels.json", "w") as f:
+        json.dump(labels, f, indent=2)
 
 
 if __name__ == "__main__":

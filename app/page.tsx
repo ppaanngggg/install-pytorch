@@ -1,6 +1,6 @@
 import Table from "@/app/components/table";
 import Search from "@/app/components/search";
-import { Record, records } from "@/app/utils/records";
+import { labels, Record, records } from "@/app/utils/data";
 import { Suspense } from "react";
 import Image from "next/image";
 import Continue from "@/app/components/continue";
@@ -69,7 +69,7 @@ export default function Home({
       </div>
       <div className="flex flex-col w-full items-center">
         <Suspense>
-          <Search records={records} />
+          <Search label={labels} />
         </Suspense>
       </div>
       <div className="divider"></div>

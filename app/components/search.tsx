@@ -1,18 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Record } from "@/app/utils/records";
+import { Label } from "@/app/utils/data";
 import { clsx } from "clsx";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-type Label = {
-  device: string[];
-  python: string[];
-  os: string[];
-  arch: string[];
-};
-
-export default function Search(props: { records: Record[] }) {
+export default function Search(props: { label: Label }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -23,43 +15,16 @@ export default function Search(props: { records: Record[] }) {
     replace(`${pathname}?${params.toString()}`);
   }
 
-  function removeFilter(key: string, value: string) {
+  function removeFilter(key: string) {
     const params = new URLSearchParams(searchParams);
     params.delete(key);
     replace(`${pathname}?${params.toString()}`);
   }
 
-  const [labels, setLabels] = useState<Label>({
-    device: [] as string[],
-    python: [] as string[],
-    os: [] as string[],
-    arch: [] as string[],
-  });
-
-  useEffect(() => {
-    let device: Set<string> = new Set();
-    let python: Set<string> = new Set();
-    let os: Set<string> = new Set();
-    let arch: Set<string> = new Set();
-    props.records.forEach((record) => {
-      device.add(record.device);
-      python.add(record.python);
-      os.add(record.os);
-      arch.add(record.arch);
-    });
-    // turn to array and sort
-    let newLabels: Label = { device: [], python: [], os: [], arch: [] };
-    newLabels.device = Array.from(device).sort();
-    newLabels.python = Array.from(python).sort();
-    newLabels.os = Array.from(os).sort();
-    newLabels.arch = Array.from(arch).sort();
-    setLabels(newLabels);
-  }, [props.records]);
-
   return (
     <div className="flex flex-col w-9/12 max-w-5xl space-y-1.5">
       <div className="flex flex-wrap justify-center items-center">
-        {labels.device.map((device) => (
+        {props.label.device.map((device) => (
           <button
             key={device}
             className={clsx(
@@ -73,7 +38,7 @@ export default function Search(props: { records: Record[] }) {
             )}
             onClick={() => {
               if (device == searchParams.get("device")) {
-                removeFilter("device", device);
+                removeFilter("device");
               } else {
                 addFilter("device", device);
               }
@@ -84,7 +49,7 @@ export default function Search(props: { records: Record[] }) {
         ))}
       </div>
       <div className="flex flex-wrap justify-center items-center">
-        {labels.python.map((python) => (
+        {props.label.python.map((python) => (
           <button
             key={python}
             className={clsx("btn btn-xs m-0.5 btn-primary", {
@@ -92,7 +57,7 @@ export default function Search(props: { records: Record[] }) {
             })}
             onClick={() => {
               if (python == searchParams.get("python")) {
-                removeFilter("python", python);
+                removeFilter("python");
               } else {
                 addFilter("python", python);
               }
@@ -103,7 +68,7 @@ export default function Search(props: { records: Record[] }) {
         ))}
       </div>
       <div className="flex flex-wrap justify-center items-center">
-        {labels.os.map((os) => (
+        {props.label.os.map((os) => (
           <button
             key={os}
             className={clsx("btn btn-xs m-0.5", {
@@ -111,7 +76,7 @@ export default function Search(props: { records: Record[] }) {
             })}
             onClick={() => {
               if (os == searchParams.get("os")) {
-                removeFilter("os", os);
+                removeFilter("os");
               } else {
                 addFilter("os", os);
               }
@@ -122,7 +87,7 @@ export default function Search(props: { records: Record[] }) {
         ))}
       </div>
       <div className="flex flex-wrap justify-center items-center">
-        {labels.arch.map((arch) => (
+        {props.label.arch.map((arch) => (
           <button
             key={arch}
             className={clsx("btn btn-xs m-0.5 btn-warning", {
@@ -130,7 +95,7 @@ export default function Search(props: { records: Record[] }) {
             })}
             onClick={() => {
               if (arch == searchParams.get("arch")) {
-                removeFilter("arch", arch);
+                removeFilter("arch");
               } else {
                 addFilter("arch", arch);
               }

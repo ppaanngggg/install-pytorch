@@ -1,5 +1,5 @@
 import { MdDownload } from "react-icons/md";
-import { Record } from "@/app/utils/records";
+import { Record } from "@/app/utils/data";
 
 function Row(record: Record) {
   return (
