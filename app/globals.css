@@ -27,4 +27,7 @@ body {
 }
 
 @layer utilities {
+  .header-background {
+    @apply bg-gradient-to-br from-orange-800 to-purple-800;
+  }
 }
