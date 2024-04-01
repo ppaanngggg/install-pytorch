@@ -30,4 +30,7 @@ body {
   .header-background {
     @apply bg-gradient-to-br from-orange-800 to-purple-800;
   }
+  .footer-background {
+    @apply bg-gradient-to-bl from-orange-800 to-purple-800;
+  }
 }
