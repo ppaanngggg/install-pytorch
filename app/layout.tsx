@@ -11,10 +11,14 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title:
-    "Install PyTorch: Target CUDA, ROCm, or CPU on Linux, Windows, or MacOS (arm64/x86_64) with Supported Python Versions",
+    "PyTorch Installation Tool for CUDA, ROCm, Python, OS, and Architecture",
   description:
-    "Super easy finder to help you install the right PyTorch version for your CUDA, ROCm, or CPU on Linux, Windows, or MacOS (arm64/x86_64) with supported Python versions.",
+    "PyTorch installation tool simplifies the process of setting up PyTorch with CUDA, ROCm, Python, OS, and architecture specifications.",
   verification: { google: "JXQ1K9hsRtt0tAXhGDnZ04Trr3sMBxQA-tO3T1WznzY" },
+  metadataBase: new URL("https://install.pytorch.site"),
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({

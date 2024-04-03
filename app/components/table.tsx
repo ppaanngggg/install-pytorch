@@ -1,6 +1,7 @@
 import { MdDownload } from "react-icons/md";
 import { Record } from "@/app/utils/data";
 import Copy from "@/app/components/copy";
+import Link from "next/link";
 
 function Row(record: Record) {
   return (
@@ -12,9 +13,9 @@ function Row(record: Record) {
       <td>{record.arch}</td>
       <td>
         <div className="flex flex-row items-center space-x-2">
-          <a href={record.url}>
+          <Link href={record.url}>
             <MdDownload />
-          </a>
+          </Link>
           <Copy url={record.url} />
         </div>
       </td>
