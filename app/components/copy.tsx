@@ -2,11 +2,12 @@
 import { MdContentCopy } from "react-icons/md";
 
 export default function Copy(props: { url: string }) {
+  const cmd = "pip install " + props.url;
   return (
-    <button
-      onClick={() => navigator.clipboard.writeText("pip install " + props.url)}
-    >
-      <MdContentCopy />
-    </button>
+    <div className="tooltip tooltip-left" data-tip="Copy pip install">
+      <button onClick={() => navigator.clipboard.writeText(cmd)}>
+        <MdContentCopy />
+      </button>
+    </div>
   );
 }

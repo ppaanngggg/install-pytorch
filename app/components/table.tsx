@@ -26,7 +26,7 @@ function Row(record: Record) {
 // read the data from the file, return a list of record
 export default async function Table(props: { records: Record[] }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-auto w-8/12 max-w-full">
       <table className="table table-lg">
         <thead>
           <tr>
