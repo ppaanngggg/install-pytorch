@@ -16,7 +16,7 @@ function Row(record: Record) {
           <Link href={record.url}>
             <MdDownload />
           </Link>
-          <Copy url={record.url} />
+          <Copy record={record} />
         </div>
       </td>
     </tr>
