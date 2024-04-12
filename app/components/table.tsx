@@ -13,7 +13,7 @@ function Row(record: Record) {
       <td>{record.arch}</td>
       <td>
         <div className="flex flex-row items-center space-x-2">
-          <Link href={record.url}>
+          <Link href={record.url} rel="noopener ugc nofollow">
             <MdDownload />
           </Link>
           <Copy record={record} />

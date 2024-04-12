@@ -1,108 +1,117 @@
-"use client";
-
-import { Label } from "@/app/utils/data";
+import { labels } from "@/app/utils/data";
 import { clsx } from "clsx";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-export default function Search(props: { label: Label }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
+export default function Search(props: {
+  device: string | null;
+  python: string | null;
+  os: string | null;
+  arch: string | null;
+  limit: number | null;
+}) {
+  const curSearchParams = new URLSearchParams();
+  props.device && curSearchParams.set("device", props.device);
+  props.python && curSearchParams.set("python", props.python);
+  props.os && curSearchParams.set("os", props.os);
+  props.arch && curSearchParams.set("arch", props.arch);
+  props.limit && curSearchParams.set("limit", props.limit.toString());
 
-  function addFilter(key: string, value: string) {
-    const params = new URLSearchParams(searchParams);
-    params.set(key, value);
-    replace(`${pathname}?${params.toString()}`);
-  }
-
-  function removeFilter(key: string) {
-    const params = new URLSearchParams(searchParams);
-    params.delete(key);
-    replace(`${pathname}?${params.toString()}`);
+  function buildUrl(
+    device: string | null,
+    python: string | null,
+    os: string | null,
+    arch: string | null,
+  ): string {
+    const newSearchParams = new URLSearchParams(curSearchParams);
+    if (device) {
+      if (device === props.device) {
+        newSearchParams.delete("device");
+      } else {
+        newSearchParams.set("device", device);
+      }
+    }
+    if (python) {
+      if (python === props.python) {
+        newSearchParams.delete("python");
+      } else {
+        newSearchParams.set("python", python);
+      }
+    }
+    if (os) {
+      if (os === props.os) {
+        newSearchParams.delete("os");
+      } else {
+        newSearchParams.set("os", os);
+      }
+    }
+    if (arch) {
+      if (arch === props.arch) {
+        newSearchParams.delete("arch");
+      } else {
+        newSearchParams.set("arch", arch);
+      }
+    }
+    return "?" + newSearchParams.toString();
   }
 
   return (
-    <div className="flex flex-col w-9/12 max-w-5xl space-y-1.5">
+    <div className="flex flex-col w-9/12 max-w-5xl space-y-1">
       <div className="flex flex-wrap justify-center items-center">
-        {props.label.device.map((device) => (
-          <button
-            key={device}
-            className={clsx(
-              "btn btn-xs m-0.5",
-              {
-                "btn-info": device.startsWith("CPU"),
-                "btn-success": device.startsWith("CUDA"),
-                "btn-error": device.startsWith("ROCm"),
-              },
-              { "btn-outline": device == searchParams.get("device") },
-            )}
-            onClick={() => {
-              if (device == searchParams.get("device")) {
-                removeFilter("device");
-              } else {
-                addFilter("device", device);
-              }
-            }}
-          >
-            {device}
-          </button>
+        {labels.device.map((device) => (
+          <Link key={device} href={buildUrl(device, null, null, null)}>
+            <button
+              className={clsx(
+                "btn btn-xs m-0.5",
+                {
+                  "btn-info": device.startsWith("CPU"),
+                  "btn-success": device.startsWith("CUDA"),
+                  "btn-error": device.startsWith("ROCm"),
+                },
+                { "btn-outline": device == props.device },
+              )}
+            >
+              {device}
+            </button>
+          </Link>
         ))}
       </div>
       <div className="flex flex-wrap justify-center items-center">
-        {props.label.python.map((python) => (
-          <button
-            key={python}
-            className={clsx("btn btn-xs m-0.5 btn-primary", {
-              "btn-outline": python == searchParams.get("python"),
-            })}
-            onClick={() => {
-              if (python == searchParams.get("python")) {
-                removeFilter("python");
-              } else {
-                addFilter("python", python);
-              }
-            }}
-          >
-            {python}
-          </button>
+        {labels.python.map((python) => (
+          <Link key={python} href={buildUrl(null, python, null, null)}>
+            <button
+              className={clsx("btn btn-xs m-0.5 btn-primary", {
+                "btn-outline": python == props.python,
+              })}
+            >
+              {python}
+            </button>
+          </Link>
         ))}
       </div>
       <div className="flex flex-wrap justify-center items-center">
-        {props.label.os.map((os) => (
-          <button
-            key={os}
-            className={clsx("btn btn-xs m-0.5", {
-              "btn-outline": os == searchParams.get("os"),
-            })}
-            onClick={() => {
-              if (os == searchParams.get("os")) {
-                removeFilter("os");
-              } else {
-                addFilter("os", os);
-              }
-            }}
-          >
-            {os}
-          </button>
+        {labels.os.map((os) => (
+          <Link key={os} href={buildUrl(null, null, os, null)}>
+            <button
+              className={clsx("btn btn-xs m-0.5", {
+                "btn-outline": os == props.os,
+              })}
+            >
+              {os}
+            </button>
+          </Link>
         ))}
       </div>
       <div className="flex flex-wrap justify-center items-center">
-        {props.label.arch.map((arch) => (
-          <button
-            key={arch}
-            className={clsx("btn btn-xs m-0.5 btn-warning", {
-              "btn-outline": arch == searchParams.get("arch"),
-            })}
-            onClick={() => {
-              if (arch == searchParams.get("arch")) {
-                removeFilter("arch");
-              } else {
-                addFilter("arch", arch);
-              }
-            }}
-          >
-            {arch}
-          </button>
+        {labels.arch.map((arch) => (
+          <Link key={arch} href={buildUrl(null, null, null, arch)}>
+            <button
+              className={clsx("btn btn-xs m-0.5 btn-warning", {
+                "btn-outline": arch == props.arch,
+              })}
+            >
+              {arch}
+            </button>
+          </Link>
         ))}
       </div>
     </div>
