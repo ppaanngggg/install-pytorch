@@ -40,6 +40,14 @@ export default function FAQ() {
           <b>HSA_OVERRIDE_GFX_VERSION=10.3.0</b>.
         </p>
         <h3 className={qClass}>
+          • Which PyTorch version should I choose for my project?
+        </h3>
+        <p className={aClass}>
+          Firstly, You should choose the PyTorch version that is compatible with
+          your model. You also need to consider the compatibility of the PyTorch
+          with your device, Python and OS.
+        </p>
+        <h3 className={qClass}>
           • What should I do next after I have downloaded the PyTorch wheel
           file?
         </h3>

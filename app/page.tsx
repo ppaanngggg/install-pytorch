@@ -148,16 +148,15 @@ export default function Home({ searchParams }: Props) {
           />
         </div>
       </header>
-      <main className="flex flex-col items-center w-full mb-auto">
-        <div className="my-2" />
+      <main className="flex flex-col items-center w-full mb-auto bg-purple-50 py-5">
         <Table records={filteredRecord} />
         {isContinue && (
           <Suspense>
             <Continue />
           </Suspense>
         )}
-        <FAQ />
       </main>
+      <FAQ />
       <footer className="flex flex-col items-center justify-center w-full footer-background text-white botto">
         <div className="my-2" />
         <div className="flex flex-row w-9/12 max-w-5xl justify-center my-2">
