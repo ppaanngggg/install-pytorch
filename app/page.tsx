@@ -30,15 +30,32 @@ export async function generateMetadata({
   if (filters.length) {
     title = `Install PyTorch on ${filters.join(", ")}`;
   }
+  const description =
+    title + ". Download the wheel directly or copy pip install cmdline.";
 
   return {
     title: title,
-    description:
-      title + ". Download the wheel directly or copy pip install cmdline.",
+    description: description,
     verification: { google: "JXQ1K9hsRtt0tAXhGDnZ04Trr3sMBxQA-tO3T1WznzY" },
     metadataBase: new URL("https://install.pytorch.site"),
     alternates: {
       canonical: "/",
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: "https://install.pytorch.site",
+      siteName: "Install PyTorch",
+      images: [
+        {
+          url: "https://install.pytorch.site/screenshot.webp",
+          width: 1308,
+          height: 816,
+          alt: "Install PyTorch",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
     },
   };
 }
@@ -93,13 +110,13 @@ export default function Home({ searchParams }: Props) {
         <Link href="/">
           <div className="flex flex-row items-center my-6">
             <Image
-              src={"/install.pytorch.png"}
+              src={"/install.pytorch.webp"}
               alt="pytorch logo"
               width={72}
               height={72}
             />
             <h1 className="text-5xl mx-10 bg-blend-color text-white">
-              Install.PyTorch
+              Install PyTorch
             </h1>
           </div>
         </Link>
