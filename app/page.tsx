@@ -57,6 +57,19 @@ export async function generateMetadata({
       locale: "en_US",
       type: "website",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      creator: "@HantianPang",
+      creatorId: "1767790642477060096",
+      images: [
+        {
+          url: "https://install.pytorch.site/screenshot.webp",
+          alt: "Install PyTorch",
+        },
+      ],
+    },
   };
 }
 
