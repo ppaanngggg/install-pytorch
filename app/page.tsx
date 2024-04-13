@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import Search from "@/app/components/search";
 import Image from "next/image";
 import Link from "next/link";
+import FAQ from "@/app/components/faq";
 
 type Props = {
   searchParams: {
@@ -155,7 +156,7 @@ export default function Home({ searchParams }: Props) {
             <Continue />
           </Suspense>
         )}
-        <div className="my-2" />
+        <FAQ />
       </main>
       <footer className="flex flex-col items-center justify-center w-full footer-background text-white botto">
         <div className="my-2" />

@@ -26,20 +26,22 @@ function Row(record: Record) {
 // read the data from the file, return a list of record
 export default async function Table(props: { records: Record[] }) {
   return (
-    <div className="overflow-auto w-8/12 max-w-4xl">
-      <table className="table table-lg">
-        <thead>
-          <tr>
-            <th>PyTorch Build</th>
-            <th>Compute Platform</th>
-            <th>Python Version</th>
-            <th>Your OS</th>
-            <th>Arch</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{props.records.map((record) => Row(record))}</tbody>
-      </table>
+    <div className="flex flex-col items-center w-full bg-purple-50 py-4">
+      <div className="overflow-auto w-8/12 max-w-4xl">
+        <table className="table table-lg">
+          <thead>
+            <tr>
+              <th>PyTorch Build</th>
+              <th>Compute Platform</th>
+              <th>Python Version</th>
+              <th>Your OS</th>
+              <th>Arch</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{props.records.map((record) => Row(record))}</tbody>
+        </table>
+      </div>
     </div>
   );
 }
