@@ -35,7 +35,8 @@
     "ROCm 5.4.2",
     "ROCm 5.5",
     "ROCm 5.6",
-    "ROCm 5.7"
+    "ROCm 5.7",
+    "ROCm 6.0"
   ],
   "python": [
     "Python 2.7",

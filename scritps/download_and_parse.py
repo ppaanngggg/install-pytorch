@@ -62,6 +62,7 @@ device_table = {
     "rocm5.5": "ROCm 5.5",
     "rocm5.6": "ROCm 5.6",
     "rocm5.7": "ROCm 5.7",
+    "rocm6.0": "ROCm 6.0",
 }
 
 macos_table = {
