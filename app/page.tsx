@@ -160,7 +160,7 @@ export default function Home({ searchParams }: Props) {
       <footer className="flex flex-col items-center justify-center w-full footer-background text-white botto">
         <div className="my-2" />
         <div className="flex flex-row w-9/12 max-w-5xl justify-center my-2">
-          <Link href="https://github.com/ppaanngggg/install.pytorch">
+          <Link href="https://github.com/ppaanngggg/install-pytorch">
             <svg
               height="24"
               aria-hidden="true"
@@ -175,7 +175,7 @@ export default function Home({ searchParams }: Props) {
           </Link>
         </div>
         <div className="flex flex-row items-right justify-center my-2">
-          <span className="font-semibold text-xs">© 2024 install.pytorch</span>
+          <span className="font-semibold text-xs">© 2024 Install PyTorch</span>
         </div>
         <div className="my-2" />
       </footer>
