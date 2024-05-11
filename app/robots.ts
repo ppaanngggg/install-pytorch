@@ -4,7 +4,8 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      disallow: "",
+      allow: "/",
+      disallow: ["/api/*", "/_next/*", "/static/*"],
     },
     sitemap: "https://install.pytorch.site/sitemap.xml",
   };
