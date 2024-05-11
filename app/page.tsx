@@ -39,9 +39,6 @@ export async function generateMetadata({
     description: description,
     verification: { google: "JXQ1K9hsRtt0tAXhGDnZ04Trr3sMBxQA-tO3T1WznzY" },
     metadataBase: new URL("https://install.pytorch.site"),
-    alternates: {
-      canonical: "/",
-    },
     openGraph: {
       title: title,
       description: description,
