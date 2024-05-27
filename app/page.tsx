@@ -17,32 +17,52 @@ type Props = {
 export async function generateMetadata({
   searchParams,
 }: Props): Promise<Metadata> {
-  const filters: string[] = [];
-  searchParams.device?.length && filters.push(searchParams.device);
-  searchParams.python?.length && filters.push(searchParams.python);
-  searchParams.os?.length && filters.push(searchParams.os);
-  searchParams.arch?.length && filters.push(searchParams.arch);
-
-  let title = "Install PyTorch on any Device, Python, OS, and Architecture";
-  if (filters.length) {
-    title = `Install PyTorch on ${filters.join(", ")}`;
+  let mainFilter: string | undefined = undefined;
+  let mainFilterType: string | undefined = undefined;
+  if (searchParams.device?.length) {
+    mainFilter = searchParams.device;
+    mainFilterType = "device";
+  } else if (searchParams.python?.length) {
+    mainFilter = searchParams.python;
+    mainFilterType = "python";
+  } else if (searchParams.os?.length) {
+    mainFilter = searchParams.os;
+    mainFilterType = "os";
+  } else if (searchParams.arch?.length) {
+    mainFilter = searchParams.arch;
+    mainFilterType = "arch";
   }
-  const description =
-    title + ". Download the wheel directly or copy pip install cmdline.";
+
+  const baseUrl = "https://install.pytorch.site";
+  let title = "Install PyTorch - Find the right torch version";
+  let description =
+    "Filter by CUDA, ROCm, Python, or your operating system to find the specific version of Torch you need. " +
+    "Either copy the pip install command-line instruction or download the .whl file directly.";
+  if (mainFilter && mainFilterType) {
+    title = `${mainFilter} | Install PyTorch`;
+    description =
+      `List all Torch versions that support ${mainFilter}. Find the right version you need. ` +
+      `Either copy the pip install command-line instruction or download the .whl file directly.`;
+    const params = new URLSearchParams();
+    params.set(mainFilterType, mainFilter);
+  }
 
   return {
+    metadataBase: new URL(baseUrl),
     title: title,
     description: description,
-    verification: { google: "JXQ1K9hsRtt0tAXhGDnZ04Trr3sMBxQA-tO3T1WznzY" },
-    metadataBase: new URL("https://install.pytorch.site"),
+    verification: {
+      google: "JXQ1K9hsRtt0tAXhGDnZ04Trr3sMBxQA-tO3T1WznzY",
+      yandex: "7d96170a903cd57e",
+    },
     openGraph: {
       title: title,
       description: description,
-      url: "https://install.pytorch.site",
+      url: baseUrl,
       siteName: "Install PyTorch",
       images: [
         {
-          url: "https://install.pytorch.site/og.webp",
+          url: `${baseUrl}/static/og.webp`,
           width: 1308,
           height: 816,
           alt: "Install PyTorch",
@@ -59,7 +79,7 @@ export async function generateMetadata({
       creatorId: "1767790642477060096",
       images: [
         {
-          url: "https://install.pytorch.site/og.webp",
+          url: `${baseUrl}/static/og.webp`,
           alt: "Install PyTorch",
         },
       ],
