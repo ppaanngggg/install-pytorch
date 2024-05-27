@@ -3,18 +3,16 @@ import { clsx } from "clsx";
 import Link from "next/link";
 
 export default function Search(props: {
-  device: string | null;
-  python: string | null;
-  os: string | null;
-  arch: string | null;
-  limit: number | null;
+  device: string | undefined;
+  python: string | undefined;
+  os: string | undefined;
+  arch: string | undefined;
 }) {
   const curSearchParams = new URLSearchParams();
   props.device && curSearchParams.set("device", props.device);
   props.python && curSearchParams.set("python", props.python);
   props.os && curSearchParams.set("os", props.os);
   props.arch && curSearchParams.set("arch", props.arch);
-  props.limit && curSearchParams.set("limit", props.limit.toString());
 
   function buildUrl(
     device: string | null,
@@ -55,7 +53,7 @@ export default function Search(props: {
   }
 
   return (
-    <div className="flex flex-col w-9/12 max-w-5xl space-y-1">
+    <div className="w-[60rem] max-w-full p-2 flex flex-col space-y-1">
       <div className="flex flex-wrap justify-center items-center">
         {labels.device.map((device) => (
           <Link key={device} href={buildUrl(device, null, null, null)}>

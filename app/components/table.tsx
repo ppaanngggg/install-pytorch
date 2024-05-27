@@ -1,5 +1,5 @@
 import { MdDownload } from "react-icons/md";
-import { Record } from "@/app/utils/data";
+import { filterRecords, pageSize, Record } from "@/app/utils/data";
 import Copy from "@/app/components/copy";
 import Link from "next/link";
 
@@ -24,22 +24,62 @@ function Row(record: Record) {
 }
 
 // read the data from the file, return a list of record
-export default async function Table(props: { records: Record[] }) {
+export default async function Table(props: {
+  device: string | undefined;
+  python: string | undefined;
+  os: string | undefined;
+  arch: string | undefined;
+  page: number;
+}) {
+  const records = filterRecords(
+    props.device,
+    props.python,
+    props.os,
+    props.arch,
+    props.page,
+  );
+  // calculate the prev page and next page
+  const params = new URLSearchParams();
+  props.device && params.set("device", props.device);
+  props.python && params.set("python", props.python);
+  props.os && params.set("os", props.os);
+  props.arch && params.set("arch", props.arch);
+  const curPage = props.page;
+  params.set("page", curPage.toString());
+  if (curPage > 1) {
+    params.set("page", (curPage - 1).toString());
+  }
+  const prevPage = "?" + params.toString();
+  params.set("page", curPage.toString());
+  if (records.length >= pageSize) {
+    params.set("page", (curPage + 1).toString());
+  }
+  const nextPage = "?" + params.toString();
+
   return (
-    <div className="overflow-auto w-8/12 max-w-4xl">
-      <table className="table table-lg">
+    <div className="w-full flex flex-col items-center max-w-full bg-purple-50 py-8">
+      <table className="table w-[48rem] max-w-full">
         <thead>
           <tr>
-            <th>PyTorch Build</th>
-            <th>Compute Platform</th>
-            <th>Python Version</th>
-            <th>Your OS</th>
+            <th>PyTorch Version</th>
+            <th>Compute Device</th>
+            <th>Python</th>
+            <th>OS</th>
             <th>Arch</th>
             <th></th>
           </tr>
         </thead>
-        <tbody>{props.records.map((record) => Row(record))}</tbody>
+        <tbody>{records.map((record) => Row(record))}</tbody>
       </table>
+      <div className="join mt-4">
+        <Link href={prevPage}>
+          <button className="join-item btn">«</button>
+        </Link>
+        <button className="join-item btn">Page {curPage}</button>
+        <Link href={nextPage}>
+          <button className="join-item btn">»</button>
+        </Link>
+      </div>
     </div>
   );
 }

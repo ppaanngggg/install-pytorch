@@ -6,4 +6,4 @@ You know, it's difficult to find a specific version of PyTorch that works with y
 
 Install-PyTorch is designed to help you find the right version of Pytorch 🎉🥳.
 
-<img src="./public/screenshot.webp" width=1000>
+<img src="./public/static/og.webp" width=1000>

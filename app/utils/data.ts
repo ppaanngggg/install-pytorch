@@ -11,10 +11,38 @@ export type Record = {
 };
 
 const recordsStr: string = readFileSync(
-  process.cwd() + "/public/records.json",
+  process.cwd() + "/public/static/records.json",
   "utf-8",
 );
 export const records: Record[] = JSON.parse(recordsStr);
+
+export const pageSize: number = 20;
+
+export function filterRecords(
+  device: string | undefined,
+  python: string | undefined,
+  os: string | undefined,
+  arch: string | undefined,
+  page: number,
+): Record[] {
+  const ret: Record[] = [];
+  // iter and filter records to ret, early stop at limit
+  for (let record of records) {
+    if (
+      (device === undefined || record.device === device) &&
+      (python === undefined || record.python === python) &&
+      (os === undefined || record.os === os) &&
+      (arch === undefined || record.arch === arch)
+    ) {
+      ret.push(record);
+      if (ret.length >= page * pageSize) {
+        break;
+      }
+    }
+  }
+  // return the slice from pageSize * (page - 1) to pageSize * page
+  return ret.slice(pageSize * (page - 1), pageSize * page);
+}
 
 export type Label = {
   device: string[];
@@ -24,7 +52,7 @@ export type Label = {
 };
 
 const labelsStr: string = readFileSync(
-  process.cwd() + "/public/labels.json",
+  process.cwd() + "/public/static/labels.json",
   "utf-8",
 );
 

@@ -1,9 +1,11 @@
 export default function FAQ() {
-  const qClass = "text-l font-semibold my-2";
-  const aClass = "text-s text-justify my-1";
+  const qClass = "text-l font-semibold py-2";
+  const aClass = "text-s text-justify py-1";
   return (
-    <div className="w-full flex flex-col items-center bg-orange-100 py-8">
-      <div className="flex flex-col w-8/12 max-w-4xl items-left px-8">
+    <div className="w-full max-w-full flex flex-col items-center bg-orange-100 px-2 py-8">
+      <div className="w-[48rem] max-w-full flex flex-col items-left">
+        <h2 className="text-2xl font-semibold">FAQ:</h2>
+        <div className="divider"></div>
         <h3 className={qClass}>• Why did you build this website?</h3>
         <p className={aClass}>
           I found it hard to find the right PyTorch version for my project. I
