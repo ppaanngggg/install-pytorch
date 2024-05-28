@@ -1,4 +1,4 @@
-# <img src="./public/install.pytorch.webp" width="30"> Install-PyTorch 
+# install-pytorch
 
 https://install.pytorch.site
 
