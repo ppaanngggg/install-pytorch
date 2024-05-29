@@ -63,9 +63,9 @@ export async function generateMetadata({
       images: [
         {
           url: `${baseUrl}/static/og.webp`,
-          width: 1308,
-          height: 816,
           alt: "Install PyTorch",
+          width: 1270,
+          height: 760,
         },
       ],
       locale: "en_US",
