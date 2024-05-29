@@ -36,12 +36,12 @@ export async function generateMetadata({
   const baseUrl = "https://install.pytorch.site";
   let title = "Install PyTorch - Find the right torch version";
   let description =
-    "Filter by CUDA, ROCm, Python, or your operating system to find the specific version of Torch you need. " +
+    "Filter by CUDA, ROCm, Python, or your operating system to find the specific version of PyTorch you need. " +
     "Either copy the pip install command-line instruction or download the .whl file directly.";
   if (mainFilter && mainFilterType) {
     title = `${mainFilter} | Install PyTorch`;
     description =
-      `List all Torch versions that support ${mainFilter}. Find the right version you need. ` +
+      `List all PyTorch versions that support ${mainFilter}. Find the right version you need. ` +
       `Either copy the pip install command-line instruction or download the .whl file directly.`;
     const params = new URLSearchParams();
     params.set(mainFilterType, mainFilter);
