@@ -34,7 +34,7 @@ export async function generateMetadata({
   }
 
   const baseUrl = "https://install.pytorch.site";
-  let title = "Install PyTorch - Find the right torch version";
+  let title = "Install PyTorch - Find the Right PyTorch Version";
   let description =
     "Filter by CUDA, ROCm, Python, or your operating system to find the specific version of PyTorch you need. " +
     "Either copy the pip install command-line instruction or download the .whl file directly.";
