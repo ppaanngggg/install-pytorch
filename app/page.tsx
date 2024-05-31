@@ -48,21 +48,27 @@ export async function generateMetadata({
   }
 
   return {
-    metadataBase: new URL(baseUrl),
     title: title,
     description: description,
+    referrer: "origin-when-cross-origin",
+    authors: [{ name: "Hantian Pang", url: "https://github.com/ppaanngggg" }],
+    creator: "Hantian Pang",
+    publisher: "Hantian Pang",
+    robots: "follow, index",
+    icons: { icon: "/favicon.ico" },
     verification: {
       google: "JXQ1K9hsRtt0tAXhGDnZ04Trr3sMBxQA-tO3T1WznzY",
       yandex: "7d96170a903cd57e",
     },
+    metadataBase: new URL(baseUrl),
     openGraph: {
+      url: baseUrl,
       title: title,
       description: description,
-      url: baseUrl,
       siteName: "Install PyTorch",
       images: [
         {
-          url: `${baseUrl}/static/og.webp`,
+          url: "/static/og.webp",
           alt: "Install PyTorch",
           width: 1270,
           height: 760,
@@ -79,7 +85,7 @@ export async function generateMetadata({
       creatorId: "1767790642477060096",
       images: [
         {
-          url: `${baseUrl}/static/og.webp`,
+          url: "/static/og.webp",
           alt: "Install PyTorch",
         },
       ],
