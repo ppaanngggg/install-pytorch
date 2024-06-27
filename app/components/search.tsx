@@ -56,7 +56,11 @@ export default function Search(props: {
     <div className="w-[60rem] max-w-full p-2 flex flex-col space-y-1">
       <div className="flex flex-wrap justify-center items-center">
         {labels.device.map((device) => (
-          <Link key={device} href={buildUrl(device, null, null, null)}>
+          <Link
+            key={device}
+            href={buildUrl(device, null, null, null)}
+            rel="nofollow"
+          >
             <button
               className={clsx(
                 "btn btn-xs m-0.5",
@@ -75,7 +79,11 @@ export default function Search(props: {
       </div>
       <div className="flex flex-wrap justify-center items-center">
         {labels.python.map((python) => (
-          <Link key={python} href={buildUrl(null, python, null, null)}>
+          <Link
+            key={python}
+            href={buildUrl(null, python, null, null)}
+            rel="nofollow"
+          >
             <button
               className={clsx("btn btn-xs m-0.5 btn-primary", {
                 "btn-outline": python == props.python,
@@ -88,7 +96,7 @@ export default function Search(props: {
       </div>
       <div className="flex flex-wrap justify-center items-center">
         {labels.os.map((os) => (
-          <Link key={os} href={buildUrl(null, null, os, null)}>
+          <Link key={os} href={buildUrl(null, null, os, null)} rel="nofollow">
             <button
               className={clsx("btn btn-xs m-0.5", {
                 "btn-outline": os == props.os,
@@ -101,7 +109,11 @@ export default function Search(props: {
       </div>
       <div className="flex flex-wrap justify-center items-center">
         {labels.arch.map((arch) => (
-          <Link key={arch} href={buildUrl(null, null, null, arch)}>
+          <Link
+            key={arch}
+            href={buildUrl(null, null, null, arch)}
+            rel="nofollow"
+          >
             <button
               className={clsx("btn btn-xs m-0.5 btn-warning", {
                 "btn-outline": arch == props.arch,

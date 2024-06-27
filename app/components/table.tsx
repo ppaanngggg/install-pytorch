@@ -72,11 +72,11 @@ export default async function Table(props: {
         <tbody>{records.map((record) => Row(record))}</tbody>
       </table>
       <div className="join mt-4">
-        <Link href={prevPage}>
+        <Link href={prevPage} rel="nofollow">
           <button className="join-item btn">«</button>
         </Link>
         <button className="join-item btn">Page {curPage}</button>
-        <Link href={nextPage}>
+        <Link href={nextPage} rel="nofollow">
           <button className="join-item btn">»</button>
         </Link>
       </div>
