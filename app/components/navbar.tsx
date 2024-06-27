@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import Search from "@/app/components/search";
 
@@ -10,7 +9,7 @@ export default function Navbar(props: {
 }) {
   return (
     <header className="navbar header-background flex-col">
-      <Link href="/">
+      <a href="/">
         <div className="flex btn btn-ghost my-4 space-x-2">
           <Image
             src={"/static/icon.webp"}
@@ -20,7 +19,7 @@ export default function Navbar(props: {
           />
           <h1 className="text-4xl text-white">Install PyTorch</h1>
         </div>
-      </Link>
+      </a>
       <h2 className="font-semibold text-white">
         Your one-stop solution for easy PyTorch installation.
       </h2>
@@ -31,7 +30,7 @@ export default function Navbar(props: {
         arch={props.arch}
       />
       <div className="absolute top-2 right-2">
-        <Link href="mailto:hantian.pang@gmail.com">
+        <a href="mailto:hantian.pang@gmail.com">
           <Image
             src="/static/email.svg"
             alt="emailme"
@@ -39,15 +38,15 @@ export default function Navbar(props: {
             height={36}
             className="pr-2"
           />
-        </Link>
-        <Link
+        </a>
+        <a
           href="https://github.com/ppaanngggg/install-pytorch"
           rel="noopener ugc nofollow"
           target="_blank"
         >
           <Image src="/static/github.svg" alt="github" width={24} height={24} />
-        </Link>
-        <Link
+        </a>
+        <a
           href="https://buymeacoffee.com/ppaanngggg"
           rel="noopener ugc nofollow"
           target="_blank"
@@ -58,14 +57,14 @@ export default function Navbar(props: {
             width={40}
             height={40}
           />
-        </Link>
-        <Link
+        </a>
+        <a
           href="https://ko-fi.com/ppaanngggg"
           rel="noopener ugc nofollow"
           target="_blank"
         >
           <Image src="/static/ko-fi.svg" alt="ko-fi" width={30} height={30} />
-        </Link>
+        </a>
       </div>
     </header>
   );

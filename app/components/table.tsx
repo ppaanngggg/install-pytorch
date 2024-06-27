@@ -1,7 +1,6 @@
 import { MdDownload } from "react-icons/md";
 import { filterRecords, pageSize, Record } from "@/app/utils/data";
 import Copy from "@/app/components/copy";
-import Link from "next/link";
 
 function Row(record: Record) {
   return (
@@ -13,9 +12,9 @@ function Row(record: Record) {
       <td>{record.arch}</td>
       <td>
         <div className="flex flex-row items-center space-x-2">
-          <Link href={record.url} rel="noopener ugc nofollow">
+          <a href={record.url} rel="noopener ugc nofollow">
             <MdDownload />
-          </Link>
+          </a>
           <Copy record={record} />
         </div>
       </td>
@@ -72,13 +71,13 @@ export default async function Table(props: {
         <tbody>{records.map((record) => Row(record))}</tbody>
       </table>
       <div className="join mt-4">
-        <Link href={prevPage} rel="nofollow">
+        <a href={prevPage} rel="nofollow">
           <button className="join-item btn">«</button>
-        </Link>
+        </a>
         <button className="join-item btn">Page {curPage}</button>
-        <Link href={nextPage} rel="nofollow">
+        <a href={nextPage} rel="nofollow">
           <button className="join-item btn">»</button>
-        </Link>
+        </a>
       </div>
     </div>
   );
